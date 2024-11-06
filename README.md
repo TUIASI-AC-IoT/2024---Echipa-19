@@ -8,20 +8,14 @@
      
 **2.Solutie de tip remote storage**
 - Server Storage:
-  
-            - va asculta cererile de la client
-  
-            - va permite operatii de stocare si manipulare a fisierelor (upload,download,delete,move)
-  
-            - va gestiona fluxul de date folosind un mecanism de fereastra glisanta
+  - va asculta cererile de la client
+  - va permite operatii de stocare si manipulare a fisierelor (upload,download,delete,move)
+  - va gestiona fluxul de date folosind un mecanism de fereastra glisanta
   
 - Client:
-  
-            - va trimite un numar fix de mesaje(dimensiunea ferestrei) si va astepta confirmarea de la server
-  
-            - va trimite cereri la server pentru a efectua operatii, fiecare cerere ar putea include tipul de operatie si, eventual,numele fisierului si datele asociate
-  
-            - va implementa logica necesara pentru a permite utilizatorului sa interactioneze cu fisierele de pe server
+    - va trimite un numar fix de mesaje(dimensiunea ferestrei) si va astepta confirmarea de la server
+    - va trimite cereri la server pentru a efectua operatii, fiecare cerere ar putea include tipul de operatie si, eventual,numele fisierului si datele asociate
+    - va implementa logica necesara pentru a permite utilizatorului sa interactioneze cu fisierele de pe server
 
 **3. Protocol UDP**
    - nu este orientat pe conexiune
@@ -51,19 +45,18 @@
                                   intre client si server
    * Operatiuni CRUD:
          - crearea : incarcarea fisierelor pe server
+     
          - citire: descarcarea fisierelor existente
+     
          - actualizare: modificarea fisierelor
+     
          - stergere: eliminarea fisierelor
    * Feedback si confirmari: ACK, confirmari de receptie a pachetelor
-   * Gestionare timeout-urilor: monitorizarea timpului de asteptare pentru confirmari si retransmiterea
-                                pachetelor daca este necesar
-   * Interfata cu utilizatorul: comenzi de la utilizator pentru operatiuni, cu feedback vizual privind
-                               starea transferurilor
-   * Protocolul ferestrei: trimiterea mai multor pachete intr-o fereastra, cu ajustarea dimensiunii
-                           ferestrei in functie de conditiile retelei
+   * Gestionare timeout-urilor: monitorizarea timpului de asteptare pentru confirmari si retransmiterea pachetelor daca este necesar
+   * Interfata cu utilizatorul: comenzi de la utilizator pentru operatiuni, cu feedback vizual privind starea transferurilor
+   * Protocolul ferestrei: trimiterea mai multor pachete intr-o fereastra, cu ajustarea dimensiunii ferestrei in functie de conditiile retelei
    * Gestionarea erorilor: logarea erorilor si implementarea mecanismelor de recuperare din erori
-   * Definirea pachetelor: stabilirea unui format standard pentru pachete, inclusiv numere de secventa
-                           si chekcum-uri
+   * Definirea pachetelor: stabilirea unui format standard pentru pachete, inclusiv numere de secventa si chekcum-uri
 
      
      Tipuri de pachete: Data, ACK
