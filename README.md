@@ -44,13 +44,10 @@
    * Comunicare prin socket-uri : utilizarea socket-urilorUDP pentru transferul rapid al datelor
                                   intre client si server
    * Operatiuni CRUD:
-         - crearea : incarcarea fisierelor pe server
-     
-         - citire: descarcarea fisierelor existente
-     
-         - actualizare: modificarea fisierelor
-     
-         - stergere: eliminarea fisierelor
+     - crearea : incarcarea fisierelor pe server
+     - citire: descarcarea fisierelor existente
+     - actualizare: modificarea fisierelor
+     - stergere: eliminarea fisierelor
    * Feedback si confirmari: ACK, confirmari de receptie a pachetelor
    * Gestionare timeout-urilor: monitorizarea timpului de asteptare pentru confirmari si retransmiterea pachetelor daca este necesar
    * Interfata cu utilizatorul: comenzi de la utilizator pentru operatiuni, cu feedback vizual privind starea transferurilor
