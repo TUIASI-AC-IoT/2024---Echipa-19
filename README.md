@@ -7,11 +7,12 @@
      de comunicatie
      
 **2.Solutie de tip remote storage**
-  -> Server Storage:  
+- Server Storage:  
             - va asculta cererile de la client
             - va permite operatii de stocare si manipulare a fisierelor (upload,download,delete,move)
             - va gestiona fluxul de date folosind un mecanism de fereastra glisanta
-  -> Client:
+  
+- Client:
             - va trimite un numar fix de mesaje(dimensiunea ferestrei) si va astepta confirmarea de la server
             - va trimite cereri la server pentru a efectua operatii, fiecare cerere ar putea include tipul de 
               operatie si, eventual,numele fisierului si datele asociate
@@ -59,6 +60,8 @@
    * Gestionarea erorilor: logarea erorilor si implementarea mecanismelor de recuperare din erori
    * Definirea pachetelor: stabilirea unui format standard pentru pachete, inclusiv numere de secventa
                            si chekcum-uri
+
+     
      Tipuri de pachete: Data, ACK
 
   ![image](https://github.com/user-attachments/assets/2f55cf13-325c-4096-9bc6-f51d58c1bb99)
