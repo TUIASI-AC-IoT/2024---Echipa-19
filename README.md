@@ -7,17 +7,21 @@
      de comunicatie
      
 **2.Solutie de tip remote storage**
-- Server Storage:  
+- Server Storage:
+  
             - va asculta cererile de la client
+  
             - va permite operatii de stocare si manipulare a fisierelor (upload,download,delete,move)
+  
             - va gestiona fluxul de date folosind un mecanism de fereastra glisanta
   
 - Client:
+  
             - va trimite un numar fix de mesaje(dimensiunea ferestrei) si va astepta confirmarea de la server
-            - va trimite cereri la server pentru a efectua operatii, fiecare cerere ar putea include tipul de 
-              operatie si, eventual,numele fisierului si datele asociate
-            - va implementa logica necesara pentru a permite utilizatorului sa interactioneze cu fisierele de 
-              pe server
+  
+            - va trimite cereri la server pentru a efectua operatii, fiecare cerere ar putea include tipul de operatie si, eventual,numele fisierului si datele asociate
+  
+            - va implementa logica necesara pentru a permite utilizatorului sa interactioneze cu fisierele de pe server
 
 **3. Protocol UDP**
    - nu este orientat pe conexiune
