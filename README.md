@@ -56,7 +56,13 @@
    * Definirea pachetelor: stabilirea unui format standard pentru pachete, inclusiv numere de secventa si chekcum-uri
 
      
-     Tipuri de pachete: Data, ACK
+  **7. Tipuri de pachete**
+  Data : In cadrul protocolului UDP pentru a transmite un pachet de tip Data vom avea nevoie de un numar de secventa, ce va indica indicele corespunzator al mesajului
+  
+  ACK : Pachetul ACKnowledge va contine un numar de secventa corespunzator mesajului pentru care se trimite confirmarea, facilitand astfel comunicarea intre server si client
+  
+  Operatii : Pachetul corespunzator operatiilor ce vor fi efectuate asupra datelor va contine tipul de operatie ce va fi aplicata asupra fisierelor
+
 
   ![image](https://github.com/user-attachments/assets/2f55cf13-325c-4096-9bc6-f51d58c1bb99)
 
