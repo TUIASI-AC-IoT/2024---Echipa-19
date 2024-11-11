@@ -36,11 +36,11 @@
    - fir de executie pentru receptie
    - fir de executie pebtru timeout
 
-
-![fire executie](https://github.com/user-attachments/assets/6a8cad3c-6e2f-47e2-b2d0-77aae7647a37)
+![Desen fără titlu](https://github.com/user-attachments/assets/a6bb5cfb-fa7d-497f-a274-bafe6f4e5ce2)
 
 
 **6. Mecanici de interactiune**
+
    * Comunicare prin socket-uri : utilizarea socket-urilorUDP pentru transferul rapid al datelor
                                   intre client si server
    * Operatiuni CRUD:
