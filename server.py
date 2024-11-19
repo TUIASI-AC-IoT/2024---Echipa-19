@@ -49,3 +49,4 @@ class ServerUDP:
         thread = threading.Thread(target=self.handle_client, args=())
         thread.start()
         print(f"Server -> Starting.. Active threads :{threading.active_count() - 1}") # how many threads
+#server

@@ -36,3 +36,4 @@ class ClientUDP:
         time.sleep(1) # to give to time to server to process the message
         self.disconnect()
 
+#client

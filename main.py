@@ -10,3 +10,4 @@ if __name__ == '__main__':
     #Starting the client
     client=ClientUDP()
     client.run()
+#main
