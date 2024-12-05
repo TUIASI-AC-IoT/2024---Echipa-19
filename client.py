@@ -62,6 +62,7 @@ class ClientUDP:
 
             send_thread.start()
             recv_thread.start()
+
             print(self.udp_address)
             send_thread.join()
             recv_thread.join()
