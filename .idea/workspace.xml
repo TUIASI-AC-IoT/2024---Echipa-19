@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c4b7f522-9b91-4f84-96fd-e76c71726bcc" name="Changes" comment="creare clase pentru client si server" />
+    <list default="true" id="c4b7f522-9b91-4f84-96fd-e76c71726bcc" name="Changes" comment="actualizare client si server cu functii separate pentru send si receive">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UDPpacket.py" beforeDir="false" afterPath="$PROJECT_DIR$/UDPpacket.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,18 +29,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "ioana-and30"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ioana-and30&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/TUIASI-AC-IoT/2024---Echipa-19.git",
-    "accountId": "e9ed57f7-4b31-4a11-8ce1-ad0776c6c852"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/TUIASI-AC-IoT/2024---Echipa-19.git&quot;,
+    &quot;accountId&quot;: &quot;e9ed57f7-4b31-4a11-8ce1-ad0776c6c852&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -86,6 +89,8 @@
       <workItem from="1730651766176" duration="1443000" />
       <workItem from="1730807087233" duration="4146000" />
       <workItem from="1732016114540" duration="7923000" />
+      <workItem from="1732190331752" duration="3666000" />
+      <workItem from="1733384528786" duration="14869000" />
     </task>
     <task id="LOCAL-00001" summary="creare clase pentru client si server">
       <option name="closed" value="true" />
@@ -103,7 +108,31 @@
       <option name="project" value="LOCAL" />
       <updated>1732027298659</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="actualizare client si server cu functii separate pentru send si receive">
+      <option name="closed" value="true" />
+      <created>1733401827598</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1733401827598</updated>
+    </task>
+    <task id="LOCAL-00004" summary="actualizare client si server cu functii separate pentru send si receive">
+      <option name="closed" value="true" />
+      <created>1733401895759</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1733401895759</updated>
+    </task>
+    <task id="LOCAL-00005" summary="actualizare client si server cu functii separate pentru send si receive">
+      <option name="closed" value="true" />
+      <created>1733405890703</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1733405890703</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -111,14 +140,17 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="creare clase pentru client si server" />
-    <option name="LAST_COMMIT_MESSAGE" value="creare clase pentru client si server" />
+    <MESSAGE value="actualizare client si server cu functii separate pentru send si receive" />
+    <option name="LAST_COMMIT_MESSAGE" value="actualizare client si server cu functii separate pentru send si receive" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/sockets$udp_receiver.coverage" NAME="udp-receiver Coverage Results" MODIFIED="1730808409411" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/sockets$udp_sender.coverage" NAME="udp-sender Coverage Results" MODIFIED="1730808413570" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/sockets$main.coverage" NAME="main Coverage Results" MODIFIED="1732025696449" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/sockets$client.coverage" NAME="client Coverage Results" MODIFIED="1732024086969" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ProiectRC$main.coverage" NAME="main Coverage Results" MODIFIED="1733403460918" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/sockets$schelet.coverage" NAME="schelet Coverage Results" MODIFIED="1730815384938" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ProiectRC$client.coverage" NAME="client Coverage Results" MODIFIED="1733394106260" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/sockets$server.coverage" NAME="server Coverage Results" MODIFIED="1732025665719" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
