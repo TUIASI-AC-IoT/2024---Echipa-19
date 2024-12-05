@@ -67,5 +67,7 @@ class ClientUDP:
             send_thread.join()
             recv_thread.join()
 
+
+
         except Exception as e:
             print(f"Client -> Error in running thread {e}")

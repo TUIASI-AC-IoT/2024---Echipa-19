@@ -40,6 +40,7 @@ class ServerUDP:
 
             except Exception as e:
                 print(f"Server -> Error : {e}")
+
                 self.connected = False
 
                 break
