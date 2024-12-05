@@ -57,6 +57,7 @@ class ClientUDP:
 
     def run(self):
         try:
+
             send_thread=threading.Thread(target=self.send_message)
             recv_thread=threading.Thread(target=self.receive_message)
 
