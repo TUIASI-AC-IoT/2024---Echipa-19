@@ -19,6 +19,8 @@ class ServerUDP:
 
         self.connected = True
 
+        self.server.settimeout(5)
+
     def handle_client(self):
         print("Server -> Ready!")
         while self.connected:
@@ -31,18 +33,17 @@ class ServerUDP:
 
                     if msg == self.disconnect_message:
                         print("Server -> Disconnect message received. Server disconnected.")
-                        self.connected = False
                         self.server.sendto("Server -> Goodbye!".encode(self.format),client_address)
                         break
                     else:
                         response="Server -> Received: {msg}"
                         self.server.sendto(response.encode(self.format), self.peer_address)
 
+            except socket.timeout:
+                continue
             except Exception as e:
                 print(f"Server -> Error : {e}")
-
                 self.connected = False
-
                 break
 
     def send_message(self):
@@ -69,7 +70,6 @@ class ServerUDP:
             send_thread.start()
 
             print(f"Server -> Starting.. Active threads :{threading.active_count() - 1}")  # how many threads
-            print(self.udp_address)
 
             recv_thread.join()
             send_thread.join()
