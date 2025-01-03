@@ -1,10 +1,7 @@
 import socket
-from packet import PacketUDP
-from packet import HEADER_SIZE
-from packet import BUFFER_SIZE
 import time
-WINDOW_SIZE = 4  # Sender's window size
-TOTAL_FRAME_NUM = 10  # Total number of frames to send
+from packet import *
+from slidingWindow import *
 
 
 class ServerUDP:
@@ -20,21 +17,23 @@ class ServerUDP:
         self.server.bind(self.udp_address)  # when receiving, verify the source IP of the packet
 
         self.connected = True
-        self.last_ack_time = None
+        self.present_time = None
         self.last_frame = None
         self.time_between_ack = None
 
-        # self.sender = Sender()
-        self.w_start = 0
-        self.w_end = 0
-        self.frame_num = 0
+        self.sender = Sender()
 
         self.rcv_message = "Receive please !"
         self.sending_frames = False
 
-    def send_message(self, message):
+        self.working_directory = "C:\\Users\\tiber\\FACULTATE\\RC_p\\SERVER"
+        self.file_path = "C:\\Users\\tiber\\FACULTATE\\RC_p\\SERVER\\Doc2.txt"
+        self.file = FilePackets(self.file_path)
+        self.packets = self.file.packetize_file()
+
+    def send_message(self, message, sequence_number=0):
         try:
-            packet = PacketUDP(0, 0, 0, message)  # 0 pt ca e de tip mesaj nu dam ACK
+            packet = PacketUDP(sequence_number, 0, 0, message)
             print(f"Server -> Sending message: {message}")
             self.server.sendto(packet.packing_data(), self.peer_address)
 
@@ -44,7 +43,7 @@ class ServerUDP:
         except ConnectionResetError:
             print("Server -> Connection was closed by the server")
 
-    def receive_message(self):
+    def receive(self):
         while self.connected:
             try:
                 data_bytes, client_address = self.server.recvfrom(BUFFER_SIZE + HEADER_SIZE)
@@ -52,25 +51,7 @@ class ServerUDP:
                 packet.unpacking_data(data_bytes)
 
                 if data_bytes:
-                    if packet.comm_type == 0:  # stand-alone message
-                        print(f"Server -> Message received : {packet.data} from  {client_address}")
-                        if packet.data == self.disconnect_message:
-                            print("Server -> Disconnect message received. Server disconnected from client.")
-                            self.send_message(self.disconnect_message)  # server sents a message that the client will be disconnected
-                            self.connected = False
-
-                        if packet.data == self.rcv_message:
-                            self.sending_frames = True
-
-                        if packet.data == "ACK":
-
-                            self.last_ack_time = time.time()
-
-                            self.w_start += 1
-                            print(f"Server -> for frame {self.frame_num} w_end {self.w_end} w_start {self.w_start}")
-
-                            if self.w_start == TOTAL_FRAME_NUM:
-                                self.sending_frames = False
+                    self.process_data(packet, client_address)
 
             except Exception as e:
                 print(f"Server -> Error : {e}")
@@ -82,37 +63,66 @@ class ServerUDP:
 
         self.server.close()
 
-    def send_frame(self):
-        # comparing None with float is not possible in Python3
+    def process_data(self, packet, client_address):
+        if packet.comm_type == 0:  # stand-alone message
+            self.process_message(packet, client_address)
+
+        if packet.comm_type == 203:  # look in userInterface for clarifications
+            self.sending_frames = True
+            # mai trebuie sa facem update la file_path ceva de genul file_path = working_dir + "\\"+ file_name(packet.data)
+
+    def process_message(self, packet, client_address):
+        print(f"Server -> Message received {packet.data} from : {client_address}  {packet.seq_num}")
+        if packet.data == self.disconnect_message:
+            print("Server -> Disconnect message received. Server disconnected from client.")
+            self.send_message(self.disconnect_message)  # server sents a message that the client will be disconnected
+            self.connected = False
+
+        if packet.data == "ACK":  # verif si seq num sa vedem daca e in sliding window
+            self.sender.w_start += 1
+            print(f"Server_r w_end {self.sender.w_end} w_start {self.sender.w_start} seq_num {packet.seq_num}")
+
+            if self.sender.w_start == self.file.total_packets:
+                self.sending_frames = False
+
+    def send_file(self):
         while self.connected:
             if self.sending_frames:
 
-                self.last_frame = time.time()
-                if self.last_ack_time is not None and self.last_frame is not None:
-                    self.time_between_ack = self.last_frame - self.last_ack_time
+                self.present_time = time.time()
+                if self.present_time is not None and self.last_frame is not None:
+                    self.time_between_ack = self.present_time - self.last_frame
+                if self.time_between_ack is not None and self.time_between_ack > 0.5:
+                    self.sender.go_back_n()
+                    print("MERGEM INAPOI")
 
-                if self.time_between_ack is not None and self.time_between_ack > 0.3:
-                    self.go_back_n()
-                    print("Go back !")
+                if self.sender.frame_num < self.sender.w_start:  # face update la frame_num atunci cand se trimit consecutiv ACK din buffer
+                    self.sender.frame_num = self.sender.w_start
 
-                if (self.w_end < TOTAL_FRAME_NUM) and self.w_end - self.w_start < WINDOW_SIZE:
-                    try:
-                        packet = PacketUDP(self.frame_num, 1, 0, "BunA ZIua DOiRti uN MEsAJ")  # 1 pt ca e de tip frame
-                        print(f"\nServer -> Sending frame {self.frame_num}")
-                        self.server.sendto(packet.packing_data(), self.peer_address)
-                        self.frame_num += 1
-                        self.w_end += 1
-                        print(f"Server -> for frame {self.frame_num -1} w_end={self.w_end} w_start={self.w_start}")
+                if self.sender.w_end < self.sender.w_start:  # face update la frame_num atunci cand se trimit consecutiv ACK din buffer
+                    self.sender.w_end = self.sender.w_start
 
-                    except Exception as e:
-                        print(f"Server -> Error : {e}")
+                if self.sender.frame_num < self.file.total_packets:
+                    if self.sender.w_end - self.sender.w_start < WINDOW_SIZE:
+                        self.calculate_time()
 
-                    except ConnectionResetError:
-                        print("Server -> Connection was closed by the server")
+                        try:
+                            packet = PacketUDP(self.sender.frame_num, 1, 0, self.packets[self.sender.frame_num])  # 1 pt ca e de tip frame
+                            print(f"Server -> Sending frame {self.sender.frame_num}")
+                            self.server.sendto(packet.packing_data(), self.peer_address)
+                            self.sender.frame_num += 1
+                            self.sender.w_end += 1
+                            print(f"Server_s w_end {self.sender.w_end} w_start {self.sender.w_start} frame_num {self.sender.frame_num}")
 
-    def receive_frame(self):
-        pass
+                        except Exception as e:
+                            print(f"Server -> Error : {e}")
 
-    def go_back_n(self):
-        self.w_end = self.w_start
-        self.frame_num = self.w_start
+                        except ConnectionResetError:
+                            print("Server -> Connection was closed by the server")
+
+    def calculate_time(self):
+        self.last_frame = time.time()
+
+
+
+
