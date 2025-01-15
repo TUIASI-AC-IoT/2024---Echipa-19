@@ -14,11 +14,6 @@ class Sender:
         if self.frame_num != self.w_start:
             self.frame_num = self.w_start
 
-    def reset(self):
-        self.w_start=0
-        self.w_end=0
-        self.frame_num=0
-
 
 class Receiver:
     def __init__(self):
@@ -33,7 +28,3 @@ class Receiver:
 
     def remove_from_buffer(self, seq_num):
         self.packet_buffer.pop(seq_num)
-
-    def reset(self):
-        self.next_expected_frame=0
-        self.clear_buffer()
