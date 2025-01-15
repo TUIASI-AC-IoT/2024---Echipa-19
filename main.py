@@ -1,7 +1,5 @@
 import threading
 import time
-from turtledemo.forest import doit1
-
 from client import ClientUDP
 from server import ServerUDP
 from packet import *

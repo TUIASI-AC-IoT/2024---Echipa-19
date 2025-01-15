@@ -1,7 +1,6 @@
 WINDOW_SIZE = 4  # Sender's window size
 PACKET_BUFFER = 5  # size of buffer for out of order packets
 
-
 class Sender:
     def __init__(self):
         self.w_start = 0

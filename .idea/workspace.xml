@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c4b7f522-9b91-4f84-96fd-e76c71726bcc" name="Changes" comment="implementare lucru cu fisiere si directoare">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/userInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/userInterface.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +103,7 @@
       <workItem from="1736598142632" duration="16858000" />
       <workItem from="1736776923188" duration="807000" />
       <workItem from="1736787505610" duration="55000" />
-      <workItem from="1736928570370" duration="655000" />
+      <workItem from="1736928570370" duration="999000" />
     </task>
     <task id="LOCAL-00001" summary="creare clase pentru client si server">
       <option name="closed" value="true" />
@@ -194,7 +193,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736928967916</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="implementare lucru cu fisiere si directoare">
+      <option name="closed" value="true" />
+      <created>1736929345741</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1736929345741</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

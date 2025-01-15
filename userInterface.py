@@ -136,6 +136,3 @@ def remove_directory(directory_path, dir_name):
 #             print(f"file: {x}")
 #         else:
 #             print(f"DIR:  {x}")
-
-
-

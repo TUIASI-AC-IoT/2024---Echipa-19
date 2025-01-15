@@ -71,6 +71,3 @@ def receive_file(file_path, data, seq_num):
             output_file.write(data)
             output_file.write(f"@@@ packet {seq_num} @@@")
 
-
-
-
