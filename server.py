@@ -69,7 +69,6 @@ class ServerUDP:
 
         self.server.close()
 
-
     def process_frames_buffer(self):
         if len(self.receiver.packet_buffer) > 0:  # trimitem ack si pt pachetele din buffer
             while self.receiver.next_expected_frame in self.receiver.packet_buffer:

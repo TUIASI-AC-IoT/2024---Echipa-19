@@ -68,7 +68,6 @@ class ClientUDP:
 
         self.client.close()
 
-
     def send_request(self, command_type,  file_name):  # doar un exemplu de cum ar trebuii ca client sa trimita request la server
         if command_type == 201:
             try:
