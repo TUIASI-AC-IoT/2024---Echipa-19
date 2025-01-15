@@ -75,7 +75,6 @@ def delete_file(directory_path, file_name):
 
     print(f"File {file_name} was deleted.")
 
-
 def exists_file(directory_path, file_name):
     file_path = os.path.join(directory_path, file_name)
     ok = False
