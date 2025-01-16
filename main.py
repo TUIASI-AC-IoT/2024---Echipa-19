@@ -25,9 +25,10 @@ if __name__ == '__main__':
 
     f.write(f"Server -> Starting.. Active threads :{threading.active_count() - 1} \n")  # how many threads
 
+    # Starting to show the menu
     start_menu()
     show_menu()
-    ok=1 #variabila pentru a sti cand utilizatorul doreste sa continue operatiile sau nu1
+    ok=1 #variabila pentru a sti cand utilizatorul doreste sa continue operatiile sau nu
 
     while ok==1:
 

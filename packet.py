@@ -13,7 +13,7 @@ class PacketUDP:
         self.length = total_length
         self.data = packet_data
 
-    def update(self, sequence_number, command_type, total_length, packet_data): # cam nefolositoare
+    def update(self, sequence_number, command_type, total_length, packet_data):
         self.seq_num = sequence_number
         self.comm_type = command_type
         self.length = total_length
@@ -40,7 +40,7 @@ class FilePackets:
         with open(self.file_path, 'r') as file:
             file_data = file.read()  # Read the entire file data
             self.total_packets = len(file_data) // BUFFER_SIZE + (1 if len(file_data) % BUFFER_SIZE != 0 else 0)
-            packets = {}  # dictionary where all the packets are gonna be
+            packets = {}  # dictionary where all the packets are going to be
 
             # Packetize and send each part of the file
             for i in range(self.total_packets):  # from 0 to total_packets - 1

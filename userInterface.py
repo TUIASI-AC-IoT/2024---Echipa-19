@@ -3,12 +3,11 @@ import os
 import shutil
 from packet import *
 
-"""
-propunere tip comanda packete comunicare:
+""" comanda packete comunicare:
     0 - mesaj simplu
     1 - frame
     
-        - clientul vrea de la server fisierele si directoarele din working_directory
+        - clientul vrea de la server fisierele si directoarele
     201 - client vrea ca server-ul sa avanseze in working_directory
     202 - client vrea ca server-ul sa se intoarca inapoi in working_directory
     203 - client vrea descarcare fisier( nume fisier este transmis in packet.data) ce se afla in working_directory
@@ -23,7 +22,7 @@ def start_menu():
 
 def show_menu():
 
-    print("▣ List files and directories from Client or Server(1)")
+    print("▣ List files and directories from Server(1)")
     print("▣ Download files from Server (2)")
     print("▣ Upload files on Server (3)")
     print("▣ Delete files from Server (4)")
@@ -117,22 +116,3 @@ def remove_directory(directory_path, dir_name):
         print("Not a directory")
     except PermissionError:
         print("You don't have permission to remove the directory.")
-
-
-# def send_files_and_dir(directory_path): # ce foloseste SERVER pt a arata la CLIENT ce directoare si fisiere are
-#     packet = PacketUDP(0, 200)
-#     files_and_dirs = os.listdir(directory_path)
-#     for x in files_and_dirs:
-#         packet.data = packet.data + " " + x
-#
-#     return packet
-#
-#
-# def see_files_and_dir(packet): # ce foloseste CLIENT pt a arata utilizatorului fisierele si directoarele de la SERVER
-#     files_and_dir = packet.data
-#     substrings = files_and_dir.split(" ")
-#     for x in substrings:
-#         if x.endswith(".txt"):
-#             print(f"file: {x}")
-#         else:
-#             print(f"DIR:  {x}")

@@ -14,7 +14,7 @@ class ServerUDP:
         self.server = socket.socket(family=socket.AF_INET,  # Address family InterNET IP4
                                     type=socket.SOCK_DGRAM)  # UDP type of socket
         self.server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.server.settimeout(200) # daca nu primeste ack in 0.5 sec
+        self.server.settimeout(200)  # time-out pt cand nu primeste ack in timpul dat
         self.server.bind(self.udp_address)  # when receiving, verify the source IP of the packet
 
         self.connected = True
@@ -32,8 +32,6 @@ class ServerUDP:
         self.home_directory = "C:\\Users\\BRAN IOANA ANDREEA\\Desktop\\ProiectRC\\Server"
         self.working_directory = "C:\\Users\\BRAN IOANA ANDREEA\\Desktop\\ProiectRC\\Server"
         self.file_path = "C:\\Users\\BRAN IOANA ANDREEA\\Desktop\\ProiectRC\\Server\\doc.txt"
-        #self.file = FilePackets(self.file_path)
-        #self.packets = self.file.packetize_file()
 
     def send_message(self, message, sequence_number=0):
         try:
@@ -82,17 +80,17 @@ class ServerUDP:
         if packet.comm_type == 0:  # stand-alone message
             self.process_message(packet, client_address)
 
-        elif packet.comm_type == 1:
+        elif packet.comm_type == 1: # frame message
             self.process_frame(packet, client_address)
 
-        elif packet.comm_type == 201: #avansare in directorul home in directorul dat
+        elif packet.comm_type == 201: #avansare din directorul home in directorul dat
             #create_directory(self.home_directory,packet.data)
             self.working_directory = self.home_directory+"\\"+packet.data
 
-        elif packet.comm_type == 202: # se intoarce in directorul home f
+        elif packet.comm_type == 202: # se intoarce in directorul home
             self.working_directory=self.home_directory
 
-        elif packet.comm_type == 203:  # look in userInterface for clarifications
+        elif packet.comm_type == 203: #serverul trimite pachete
             self.sender.reset()
 
             self.sending_frames = True
@@ -101,7 +99,7 @@ class ServerUDP:
             self.file = FilePackets(self.file_path)
             self.packets = self.file.packetize_file()
 
-        elif packet.comm_type == 204:  # server asteapta sa primeasca
+        elif packet.comm_type == 204:  # serverul asteapta sa primeasca
             self.receiver.reset()
 
             f_name=packet.data
@@ -112,24 +110,25 @@ class ServerUDP:
             create_file(self.working_directory, f_name)
             self.file_path = os.path.join(self.working_directory, f_name) #update file_path, unde se descarca datele
 
-        elif packet.comm_type == 205:
+        elif packet.comm_type == 205: #se sterge un fisier sau director
             f_name=packet.data
             if f_name.endswith(".txt"):
                 delete_file(self.working_directory, f_name)
             else:
                 remove_directory(self.working_directory, f_name)
 
-        elif packet.comm_type == 206: # name_list[0] - filename, name_list[1] - dir_name
+        elif packet.comm_type == 206: # name_list[0] - filename, name_list[1] - dir_name, se muta un fisier
+                                                            # din directorul curent in directorul specificat
             name_list=packet.data.split(" ")
-            source_path=self.working_directory+"\\"+name_list[0]
-            destination_path=self.home_directory+"\\"+name_list[1]
+            source_path=self.working_directory+"\\"+name_list[0] #de unde se muta fisierul
+            destination_path=self.home_directory+"\\"+name_list[1] #unde se muta fisierul
             move_file(source_path,destination_path)
 
     def process_message(self, packet, client_address):
         f.write(f"Server -> Message received {packet.data} from : {client_address}  {packet.seq_num} \n")
         if packet.data == self.disconnect_message:
             f.write("Server -> Disconnect message received. Server disconnected from client.\n")
-            self.send_message(self.disconnect_message)  # server sents a message that the client will be disconnected
+            self.send_message(self.disconnect_message)  # server sent the message saying that the client will be disconnected
             self.connected = False
 
         if packet.data == "ACK":  # verif si seq num sa vedem daca e in sliding window
@@ -172,7 +171,7 @@ class ServerUDP:
                     self.time_between_ack = self.present_time - self.last_frame
                 if self.time_between_ack is not None and self.time_between_ack > 0.5:
                     self.sender.go_back_n()
-                    f.write("MERGEM INAPOI \n")
+                    f.write("Go Back N \n")
 
                 if self.sender.frame_num < self.sender.w_start:  # face update la frame_num atunci cand se trimit consecutiv ACK din buffer
                     self.sender.frame_num = self.sender.w_start

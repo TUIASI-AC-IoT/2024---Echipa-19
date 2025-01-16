@@ -1,6 +1,5 @@
 import socket
 import time
-from packet import *
 from slidingWindow import *
 from userInterface import *
 import random
@@ -11,7 +10,7 @@ class ClientUDP:
         self.peer_address = (peer_ip, peer_port)
         self.client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.client.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.client.settimeout(200)  # pt mai tarziu
+        self.client.settimeout(200)
         self.client.bind(self.udp_address)
 
         self.disconnect_message = "Disconnect please !"
@@ -30,17 +29,9 @@ class ClientUDP:
         self.working_directory = "C:\\Users\\BRAN IOANA ANDREEA\\Desktop\\ProiectRC\\Client"
         self.file_path = "C:\\Users\\BRAN IOANA ANDREEA\\Desktop\\ProiectRC\\Client\\doc.txt"
 
-        #self.file = FilePackets(self.file_path)
-        #self.packets = self.file.packetize_file()
-
-        #creare fisier pt afisare mesaje intre client si server
-        #verifica daca exista fisierul, daca nu ,il creeaza
-        #pt fiecare print din client si server file.write()
-        # dupa disconnect in interfata -> inchidere fisier
-
     def send_message(self, message, sequence_number=0):  # seq number de pus packete intermediare
         try:
-            packet = PacketUDP(sequence_number, 0, 0, message)  # 0 pt ca e de tip mesaj nu dam ACK
+            packet = PacketUDP(sequence_number, 0, 0, message)  # 0 pt ca e de tip mesaj, nu dam ACK
             f.write(f"Client -> Sending message: {message}, seq num = {sequence_number} \n")
             self.client.sendto(packet.packing_data(), self.peer_address)
 
@@ -68,10 +59,10 @@ class ClientUDP:
 
         self.client.close()
 
-    def send_request(self, command_type,  file_name):  # doar un exemplu de cum ar trebuii ca client sa trimita request la server
-        if command_type == 201:
-            try:
+    def send_request(self, command_type,  file_name):
 
+        if command_type == 201: # request sa mearga intr-un anumit director
+            try:
                 packet = PacketUDP(0, command_type, 0, file_name) # file_name = dir_name
                 f.write(f"Client -> Sending request: go to directory {file_name} \n")
                 self.client.sendto(packet.packing_data(), self.peer_address)
@@ -82,9 +73,8 @@ class ClientUDP:
             except ConnectionResetError:
                 print("Client -> Connection was closed by the server")
 
-        elif command_type == 202:
+        elif command_type == 202: #request sa se intoarca in directorul home
             try:
-
                 packet = PacketUDP(0, command_type, 0,file_name)
                 f.write(f"Client -> Return to home directory \n")
                 self.client.sendto(packet.packing_data(), self.peer_address)
@@ -95,7 +85,7 @@ class ClientUDP:
             except ConnectionResetError:
                 print("Client -> Connection was closed by the server")
 
-        elif command_type == 203:  # client vrea sa descarce
+        elif command_type == 203:  # request sa descarce un fisier
             self.receiver.reset()
 
             if exists_file(self.working_directory, file_name):
@@ -103,7 +93,7 @@ class ClientUDP:
                 delete_file(self.working_directory, file_name)
 
             create_file(self.working_directory, file_name)
-            self.file_path = self.working_directory + "\\" + file_name  # file_path = unde se salveaza continutul ce urmeaza a fii primit de la server
+            self.file_path = self.working_directory + "\\" + file_name  # file_path = unde se salveaza continutul ce urmeaza a fi primit de la server
 
             try:
                 packet = PacketUDP(0, command_type, 0, file_name)
@@ -116,7 +106,7 @@ class ClientUDP:
             except ConnectionResetError:
                 print("Client -> Connection was closed by the server")
 
-        elif command_type == 204:  # client vrea sa incarce in server fisier
+        elif command_type == 204:  #request sa incarce un fisier
             self.sender.reset()
 
             self.file_path = os.path.join(self.working_directory, file_name)
@@ -138,7 +128,7 @@ class ClientUDP:
                 time.sleep(0.2)
                 self.sending_frames = True
 
-        elif command_type == 205:
+        elif command_type == 205: #request sa stearga un fisier sau director
 
             try:
                 packet=PacketUDP(0,command_type,0,file_name)
@@ -151,10 +141,10 @@ class ClientUDP:
             except ConnectionResetError:
                 print("Client -> Connection was closed by the server")
 
-        elif command_type == 206: # send_request(206,fisier+" "+dir)
+        elif command_type == 206: # send_request(206,fisier+" "+dir), request sa mute
             try:
                 packet=PacketUDP(0,command_type,0,file_name)
-                f.write(f"Client -> Sending request to delete {file_name} \n")
+                f.write(f"Client -> Sending request to move {file_name} \n")
                 self.client.sendto(packet.packing_data(),self.peer_address)
 
             except Exception as e:
@@ -172,7 +162,7 @@ class ClientUDP:
                     self.time_between_ack = self.present_time - self.last_frame
                 if self.time_between_ack is not None and self.time_between_ack > 0.5:
                     self.sender.go_back_n()
-                    f.write("MERGEM INAPOI \n")
+                    f.write("Go Back N \n")
 
                 if self.sender.frame_num < self.sender.w_start:  # face update la frame_num atunci cand se trimit consecutiv ACK din buffer
                     self.sender.frame_num = self.sender.w_start
