@@ -1,7 +1,7 @@
 # 2024---Echipa-19
 # Controlul fluxului prin intermediul unui protocol cu fereastra glisanta
 
-      Proiectul implementeaza un protocol bazat pe UDP pentru transferul fisierelor si realizarea operatiilor de tip CRUD(Create, Remove, Upload, Download) intre un client si un server. Utilizarea unui mecanism de fereastra glisanta Go-back-N asigura o gestionare eficienta a fluxului de date,gestionand pierderile de pachete si confirmarile pentru acestea.
+# Proiectul implementeaza un protocol bazat pe UDP pentru transferul fisierelor si realizarea operatiilor de tip CRUD(Create, Remove, Upload, Download) intre un client si un server. Utilizarea unui mecanism de fereastra glisanta Go-back-N asigura o gestionare eficienta a fluxului de date,gestionand pierderile de pachete si confirmarile pentru acestea.
       
 **1. Modul socket**
    - un modul socket abstractizeaza detaliile complexe ale protocoalelor de retea intr-un set de apeluri de sistem
